@@ -1,0 +1,19 @@
+IF OBJECT_ID ('dbo.Tags', 'U') IS NOT NULL
+    DROP TABLE dbo.Tags;
+GO
+
+CREATE TABLE Tags (
+    Id      INT IDENTITY(1,1)  NOT NULL PRIMARY KEY ,
+    Name    VARCHAR(100)
+)
+GO
+
+CREATE NONCLUSTERED INDEX IX_Tags_Name ON Tags
+(Name) INCLUDE (Id)
+GO
+
+INSERT INTO Tags (Name)
+SELECT DISTINCT 
+       Tag
+FROM PostTags
+GO 
